@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]   # если у вас ветка master – замените здесь и ниже
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Restore GCP creds
+        env:
+          GCP_CRED_JSON: ${{ secrets.GCP_CRED_JSON }}
+        run: echo "$GCP_CRED_JSON" > service_account.json
+
+      - name: Smoke-test import
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python -c "import finbot_1203_fixed9; print('✅ import ok')"
