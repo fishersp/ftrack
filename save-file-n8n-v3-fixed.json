@@ -1,0 +1,134 @@
+{
+  "name": "save-file",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "save-file",
+        "responseMode": "onReceived",
+        "httpMethod": "POST"
+      },
+      "id": "Webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fileId": "your-file-id-here",
+        "options": {}
+      },
+      "id": "Download",
+      "name": "Google Drive → Download File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ],
+      "credentials": {
+        "googleApi": "Google Drive OAuth2 API"
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "return items;"
+      },
+      "id": "Code",
+      "name": "Code",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "Финансовый_план_и_долги (8).xlsx",
+        "parents": [],
+        "options": {
+          "overwrite": true
+        }
+      },
+      "id": "Upload",
+      "name": "Google Drive → Upload File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        800,
+        300
+      ],
+      "credentials": {
+        "googleApi": "Google Drive OAuth2 API"
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_CHAT_ID",
+        "text": "✅ Файл успешно обновлён"
+      },
+      "id": "Telegram",
+      "name": "Telegram (Send Message)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        400
+      ],
+      "credentials": {
+        "telegramApi": "Telegram"
+      }
+    },
+    {
+      "parameters": {
+        "responseMode": "lastNode",
+        "responseData": "={{ { \"result\": \"ok\" } }}"
+      },
+      "id": "Respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          "Download"
+        ]
+      ]
+    },
+    "Download": {
+      "main": [
+        [
+          "Code"
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          "Upload"
+        ]
+      ]
+    },
+    "Upload": {
+      "main": [
+        [
+          "Respond"
+        ],
+        [
+          "Telegram"
+        ]
+      ]
+    }
+  }
+}

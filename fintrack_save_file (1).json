@@ -1,0 +1,125 @@
+{
+  "name": "fintrack-save-file",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "51e89693-dab3-4947-8fc7-f1eaef19c440",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        320,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "save-file",
+        "options": {}
+      },
+      "id": "464ae03d-3e11-4615-a2af-1244a90f12c5",
+      "name": "Webhook1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        120,
+        120
+      ],
+      "webhookId": "f5e326eb-4038-44d5-9431-1251bdb9d0d3"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "binaryData": true,
+        "name": "Финансовый_план_итоговая_сводка_2.xlsx",
+        "options": {}
+      },
+      "id": "d5df92af-1962-4008-8602-b37d3f795db1",
+      "name": "Google Drive → Upload File1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        520,
+        120
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "272327626",
+        "text": "записано в трекер расходов:\n{{ $json[\"дата\"] }}, {{ $json[\"категория\"] }}, {{ $json[\"сумма\"] }}₽, {{ $json[\"комментарий\"] }}",
+        "additionalFields": {}
+      },
+      "id": "adad053c-4aea-4923-9074-bc085dadd0d3",
+      "name": "Telegram → Send Message1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        820,
+        120
+      ],
+      "webhookId": "9bf6720c-82a2-4817-924d-c9f3bc574c8e",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0xsaWUT6msPunS9",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Drive → Upload File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive → Upload File1": {
+      "main": [
+        [
+          {
+            "node": "Telegram → Send Message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "25e6851f-94e6-4c65-82de-47e37fa139f5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b2c81697131b0d7e21c496aa74a69cb6206fe404e01b9f8fa345abeaaf841894"
+  },
+  "id": "0BA5EwPerludoxJB",
+  "tags": []
+}

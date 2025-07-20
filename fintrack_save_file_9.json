@@ -1,0 +1,73 @@
+{
+  "name": "fintrack-save-file",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "save-file",
+        "options": {}
+      },
+      "id": "464ae03d-3e11-4615-a2af-1244a90f12c5",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [120, 120],
+      "webhookId": "f5e326eb-4038-44d5-9431-1251bdb9d0d3"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "18wm0MZ4z1Ngm1IuFPmKtBfr7OLhr_KjguPsK4D8KNBA",
+          "mode": "list",
+          "cachedResultName": "Финансовый_план_итоговая_сводка_2.xlsx",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18wm0MZ4z1Ngm1IuFPmKtBfr7OLhr_KjguPsK4D8KNBA/export?format=xlsx"
+        },
+        "options": {}
+      },
+      "id": "downloadGoogleDriveFile",
+      "name": "Google Drive → Download File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [320, 120],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const ExcelJS = require('exceljs');\n\n// Получаем данные\nconst excelBinaryData = $input.item.binary.data;\nconst webhookData = $input.item.json;\n\nconsole.log('Received data:', JSON.stringify(webhookData));\n\n// Создаём книгу Excel из бинарных данных\nconst workbook = new ExcelJS.Workbook();\nawait workbook.xlsx.load(excelBinaryData);\n\n// Получаем нужный лист или создаём новый\nlet worksheet = workbook.getWorksheet(\"Трекер расходов\");\nif (!worksheet) {\n    worksheet = workbook.addWorksheet(\"Трекер расходов\");\n    worksheet.columns = [\n        { header: 'дата', key: 'дата' },\n        { header: 'категория', key: 'категория' },\n        { header: 'сумма (₽)', key: 'сумма' },\n        { header: 'комментарий', key: 'комментарий' },\n        { header: 'учитывается в анализе?', key: 'анализ' }\n    ];\n}\n\n// Добавляем новую строку\nworksheet.addRow({\n    дата: webhookData.дата,\n    категория: webhookData.категория,\n    сумма: webhookData.сумма,\n    комментарий: webhookData.комментарий,\n    анализ: 'да'\n});\n\n// Сохраняем как бинарные данные\nconst updatedExcel = await workbook.xlsx.writeBuffer();\n\n// Возвращаем результат\nreturn [\n  {\n    json: { \n      success: true,\n      message: 'Excel file processed',\n      data: webhookData\n    },\n    binary: {\n      data: updatedExcel\n    }\n  }\n];"
+      },
+      "id": "pythonExcelModifier",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [520, 120]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "upload",
+        "resource": "file",
+        "name": "Финансовый_план_итоговая_сводка_2.xlsx",
+        "fileId": {
+          "__rl": true,
+          "value": "18wm0MZ4z1Ngm1IuFPmKtBfr7OLhr_KjguPsK4D8KNBA",
+          "mode": "list",
+          "cachedResultName": "Финансовый_план_итоговая_сводка_2.xlsx",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18wm0MZ4z1Ngm1IuFPmKtBfr7OLhr_KjguPsK4D8KNBA/export?format=xlsx"
+        },
+        "options": {
+          "updateExistingFile": true
+        }
+      },
+      "id": "uploadGoogleDriveFile",
+      "name": "Google Drive → Upload File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [720, 120],

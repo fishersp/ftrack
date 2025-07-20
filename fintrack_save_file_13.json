@@ -1,0 +1,188 @@
+{
+  "name": "fintrack-save-file",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "save-file",
+        "options": {}
+      },
+      "id": "7e674842-09bd-4878-a164-501f29b92ad9",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        80,
+        200
+      ],
+      "webhookId": "f5e326eb-4038-44d5-9431-1251bdb9d0d3"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "18wm0MZ4z1Ngm1IuFPmKtBfr7OLhr_KjguPsK4D8KNBA",
+          "mode": "list",
+          "cachedResultName": "Финансовый_план_итоговая_сводка_2.xlsx",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18wm0MZ4z1Ngm1IuFPmKtBfr7OLhr_KjguPsK4D8KNBA/export?format=xlsx"
+        },
+        "options": {}
+      },
+      "id": "494cb41e-65d3-4835-9c31-f5364f9919e7",
+      "name": "Google Drive → Download File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        280,
+        200
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const ExcelJS = require('exceljs');\n\n// Получаем данные\nconst excelBinaryData = $input.item.binary.data;\nconst webhookData = $input.item.json;\n\nconsole.log('Received data:', JSON.stringify(webhookData));\n\n// Создаём книгу Excel из бинарных данных\nconst workbook = new ExcelJS.Workbook();\nawait workbook.xlsx.load(excelBinaryData);\n\n// Получаем нужный лист или создаём новый\nlet worksheet = workbook.getWorksheet(\"Трекер расходов\");\nif (!worksheet) {\n    worksheet = workbook.addWorksheet(\"Трекер расходов\");\n    worksheet.columns = [\n        { header: 'дата', key: 'дата' },\n        { header: 'категория', key: 'категория' },\n        { header: 'сумма (₽)', key: 'сумма' },\n        { header: 'комментарий', key: 'комментарий' },\n        { header: 'учитывается в анализе?', key: 'анализ' }\n    ];\n}\n\n// Добавляем новую строку\nworksheet.addRow({\n    дата: webhookData.дата,\n    категория: webhookData.категория,\n    сумма: webhookData.сумма,\n    комментарий: webhookData.комментарий,\n    анализ: 'да'\n});\n\n// Сохраняем как бинарные данные\nconst updatedExcel = await workbook.xlsx.writeBuffer();\n\n// Возвращаем результат\nreturn [\n  {\n    json: { \n      success: true,\n      message: 'Excel file processed',\n      data: webhookData\n    },\n    binary: {\n      data: updatedExcel\n    }\n  }\n];"
+      },
+      "id": "f8a32002-419f-4b05-984b-52ca7478930c",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        480,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "name": "Финансовый_план_итоговая_сводка_2.xlsx",
+        "options": {}
+      },
+      "id": "f4dbf902-75b7-4697-a224-8a6e97110fcd",
+      "name": "Google Drive → Upload File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        680,
+        200
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "95d8aedf-c063-4bad-a8aa-a83cf50a2225",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        880,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "272327626",
+        "text": "✅ записано в трекер расходов:\\n{{ $json[\\\"дата\\\"] }}, {{ $json[\\\"категория\\\"] }}, {{ $json[\\\"сумма\\\"] }}₽, {{ $json[\\\"комментарий\\\"] }}",
+        "additionalFields": {}
+      },
+      "id": "9127eebf-934b-4fd8-a63c-ad6c1be26c34",
+      "name": "Telegram (Send Message)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        860,
+        440
+      ],
+      "webhookId": "5485a378-8de9-46bf-bea8-d6ed86bf49e4",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0xsaWUT6msPunS9",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Drive → Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive → Download File": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Google Drive → Upload File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive → Upload File": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Telegram (Send Message)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0d73eea9-4f32-4f4d-b5e6-e95c8d5cec7e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b2c81697131b0d7e21c496aa74a69cb6206fe404e01b9f8fa345abeaaf841894"
+  },
+  "id": "0BA5EwPerludoxJB",
+  "tags": []
+}

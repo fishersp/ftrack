@@ -1,0 +1,106 @@
+{
+  "name": "fintrack-save-file",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "save-file"
+      },
+      "id": "464ae03d-3e11-4615-a2af-1244a90f12c5",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [120, 120]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "appendRow",
+        "spreadsheetId": "ID_твоего_документа",
+        "range": "A1:E1", // Диапазон для записи
+        "values": [
+          "{{ $json['дата'] }}",
+          "{{ $json['категория'] }}",
+          "{{ $json['сумма'] }}",
+          "{{ $json['комментарий'] }}",
+          "да"
+        ]
+      },
+      "id": "googleSheetsNode",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [320, 120],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseJson": {
+          "status": "success",
+          "message": "Data received and processed"
+        },
+        "options": {}
+      },
+      "id": "respondToWebhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [520, 120]
+    },
+    {
+      "parameters": {
+        "chatId": "272327626",
+        "text": "записано в трекер расходов:\n{{ $json[\"дата\"] }}, {{ $json[\"категория\"] }}, {{ $json[\"сумма\"] }}₽, {{ $json[\"комментарий\"] }}"
+      },
+      "id": "telegramSendMessage",
+      "name": "Telegram (Send Message)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [520, 240],
+      "credentials": {
+        "telegramApi": {
+          "id": "W0xsaWUT6msPunS9",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "googleSheetsNode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "googleSheetsNode": {
+      "main": [
+        [
+          {
+            "node": "respondToWebhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "telegramSendMessage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "89

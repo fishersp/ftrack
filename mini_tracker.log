@@ -1,0 +1,71 @@
+2025-06-10 00:47:57,761 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getMe "HTTP/1.1 200 OK"
+2025-06-10 00:47:57,812 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/deleteWebhook "HTTP/1.1 200 OK"
+2025-06-10 00:47:57,812 | INFO | Application started
+2025-06-10 00:47:58,956 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:47:59,209 | INFO | 🧾 Расход записан: продукты, 10.00, тест
+2025-06-10 00:47:59,622 | INFO | ✅ Файл успешно отправлен в n8n.
+2025-06-10 00:47:59,695 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/sendMessage "HTTP/1.1 200 OK"
+2025-06-10 00:48:09,683 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:48:19,735 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:48:29,790 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:48:39,842 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:48:49,898 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:48:59,954 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:49:10,009 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:49:20,065 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:49:30,118 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:49:40,171 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:49:50,225 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:50:00,280 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:50:10,333 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:50:20,388 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:50:30,444 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:50:40,499 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:50:50,558 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:51:00,612 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:51:10,667 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:51:20,724 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:51:30,776 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:51:40,835 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:51:50,889 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:52:00,942 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:52:11,011 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:52:21,067 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:52:31,120 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:52:41,178 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:52:51,234 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:53:01,297 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:53:11,353 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:53:21,409 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 200 OK"
+2025-06-10 00:53:26,400 | INFO | HTTP Request: POST https://api.telegram.org/bot7575422774:AAFMZyuxHZ1ArYPE-j2rf94BIC2nBuyVPqk/getUpdates "HTTP/1.1 409 Conflict"
+2025-06-10 00:53:26,401 | ERROR | No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 115, in network_retry_loop
+    if not await do_action():
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 108, in do_action
+    return action_cb_task.result()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\ext\_updater.py", line 335, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\ext\_extbot.py", line 669, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\_bot.py", line 4601, in get_updates
+    await self._post(
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\_bot.py", line 697, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\ext\_extbot.py", line 369, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\_bot.py", line 726, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\request\_baserequest.py", line 197, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Docs\tbot\fin_track\venv\Lib\site-packages\telegram\request\_baserequest.py", line 355, in _request_wrapper
+    raise Conflict(message)
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running

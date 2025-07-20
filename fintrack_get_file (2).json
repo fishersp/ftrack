@@ -1,0 +1,100 @@
+{
+  "name": "fintrack-get-file",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "get-sheet",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "c9e80882-c2df-483b-ba3d-a2fb372731ba",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        120,
+        120
+      ],
+      "webhookId": "8548b083-8ee0-492b-9af9-be42462fc1dd"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "18Rj3aUIUkZmmiWUSMoTnr-6wWMT_XWcm",
+          "mode": "list",
+          "cachedResultName": "Финансовый_план_итоговая_сводка_2.xlsx",
+          "cachedResultUrl": "https://drive.google.com/file/d/18Rj3aUIUkZmmiWUSMoTnr-6wWMT_XWcm/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "id": "7e10c15d-bb5c-4487-b02c-9a6895a5b88e",
+      "name": "Google Drive → Download File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        420,
+        120
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "binary",
+        "responseDataSource": "set",
+        "options": {}
+      },
+      "id": "8bf5e6e1-09b7-4091-8073-480817f3ea27",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        720,
+        120
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Drive → Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive → Download File": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "52fd68df-ad12-4dc5-8508-8f971016bc10",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b2c81697131b0d7e21c496aa74a69cb6206fe404e01b9f8fa345abeaaf841894"
+  },
+  "id": "XNX0tZuBE1PFEIFV",
+  "tags": []
+}

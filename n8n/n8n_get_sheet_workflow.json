@@ -1,0 +1,82 @@
+{
+  "name": "get-sheet",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "get-sheet",
+        "responseMode": "onReceived",
+        "options": {},
+        "httpMethod": "GET"
+      },
+      "id": "Webhook_Get",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fileId": "<FILE_ID>",
+        "binaryPropertyName": "data"
+      },
+      "id": "Drive_Download",
+      "name": "Google Drive \u2192 Download File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "GOOGLE_API_CREDENTIAL_ID",
+          "name": "Google API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "statusCode": 200,
+        "responseMode": "lastNode",
+        "options": {},
+        "responseData": "firstEntryJson"
+      },
+      "id": "Respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        800,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Drive \u2192 Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive \u2192 Download File": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false
+}

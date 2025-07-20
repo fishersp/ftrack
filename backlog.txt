@@ -1,0 +1,2 @@
+
+n8n - добавить в save для шага telegram send message автоопределние ID

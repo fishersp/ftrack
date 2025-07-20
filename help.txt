@@ -1,0 +1,14 @@
+mkdir -p ~/.n8n/custom && cd ~/.n8n/custom
+npm init -y
+ls node_modules | grep exceljs   
+
+n8n pin - 97979797@qQ
+koelkellll@gmail.com:97419741@ - google
+koelkellll@gmail.com:97979797@ - акк на koyab
+
+8187515925:AAElv-XM7EFFdZ2-Pzl2FWUaLOQl9no6a3Y
+бота
+
+git
+koelkellll@gmail.com
+97979797@qQ

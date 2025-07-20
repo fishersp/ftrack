@@ -1,0 +1,194 @@
+{
+  "name": "fintrack-save-file",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "save-file",
+        "options": {}
+      },
+      "id": "464ae03d-3e11-4615-a2af-1244a90f12c5",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        120,
+        120
+      ],
+      "webhookId": "f5e326eb-4038-44d5-9431-1251bdb9d0d3"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1JIu3oVOg5xFyNGj93Jao_m_-PLxh5MZy",
+          "mode": "list",
+          "cachedResultName": "Финансовый_план_итоговая_сводка_2.xlsx",
+          "cachedResultUrl": "https://drive.google.com/file/d/1JIu3oVOg5xFyNGj93Jao_m_-PLxh5MZy/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "id": "downloadGoogleDriveFile",
+      "name": "Google Drive (Download)",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        320,
+        120
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the binary data of the Excel file from the previous node\nconst excelBinaryData = $input.item.binary.data;\n\n// Get the data from the webhook (e.g., category, amount, comment)\nconst webhookData = $input.item.json;\n\n// For demonstration, we'll just pass through the data\n// In a real implementation, you would modify the Excel file here\n// using appropriate libraries or methods\n\nconsole.log('Received webhook data:', JSON.stringify(webhookData));\nconsole.log('Processing Excel file...');\n\n// Return the binary data (in a real implementation, this would be the modified Excel file)\nreturn [\n  {\n    json: { \n      success: true,\n      message: 'Excel file processed',\n      data: webhookData\n    },\n    binary: {\n      data: excelBinaryData\n    }\n  }\n];"
+      },
+      "id": "pythonExcelModifier",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        520,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "upload",
+        "resource": "file",
+        "name": "Финансовый_план_итоговая_сводка_2.xlsx",
+        "fileId": {
+          "__rl": true,
+          "value": "1JIu3oVOg5xFyNGj93Jao_m_-PLxh5MZy",
+          "mode": "list",
+          "cachedResultName": "Финансовый_план_итоговая_сводка_2.xlsx",
+          "cachedResultUrl": "https://drive.google.com/file/d/1JIu3oVOg5xFyNGj93Jao_m_-PLxh5MZy/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "id": "uploadGoogleDriveFile",
+      "name": "Google Drive (Upload)",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        720,
+        120
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nl0IgPgkpPAmpZUt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseJson": {
+          "status": "success",
+          "message": "Data received and processed"
+        },
+        "options": {}
+      },
+      "id": "respondToWebhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        920,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "272327626",
+        "text": "записано в трекер расходов:\n{{ $json[\"дата\"] }}, {{ $json[\"категория\"] }}, {{ $json[\"сумма\"] }}₽, {{ $json[\"комментарий\"] }}",
+        "additionalFields": {}
+      },
+      "id": "telegramSendMessage",
+      "name": "Telegram (Send Message)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        920,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "W0xsaWUT6msPunS9",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "downloadGoogleDriveFile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "downloadGoogleDriveFile": {
+      "main": [
+        [
+          {
+            "node": "pythonExcelModifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pythonExcelModifier": {
+      "main": [
+        [
+          {
+            "node": "uploadGoogleDriveFile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "uploadGoogleDriveFile": {
+      "main": [
+        [
+          {
+            "node": "respondToWebhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "telegramSendMessage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "89efa92d-5f80-4c03-be10-275b7c4da798",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b2c81697131b0d7e21c496aa74a69cb6206fe404e01b9f8fa345abeaaf841894"
+  },
+  "id": "0BA5EwPerludoxJB",
+  "tags": []
+}
